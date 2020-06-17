@@ -29,11 +29,16 @@ data.forEach(function(x, i) {
 // ---------------------------------------------------
 // 2) Define a function to handle the input
 function filterData() {
+        // prevent page for refreshing
+        d3.event.preventDefault();
+
         // grab input value
-        // var inputField = d3.select("#datetime")
-        var inputValue= d3.event.target.value;
+        var inputValue= d3.select("#datetime").node().value;
         // filter data
         filteredData= data.filter(x => x.datetime === inputValue)
+
+        // clear the input value
+        d3.select("#datetime").node().value = "";
 
         // clear table before rendering
         d3.selectAll("#outputTable > tr").remove()
@@ -57,4 +62,4 @@ function filterData() {
 
 // ---------------------------------------------------
 // 3) Attach an event to detect changes to the input field
-d3.select("#datetime").on("change",filterData)
+d3.select("#filter-btn").on("click",filterData)
